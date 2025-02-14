@@ -5,7 +5,7 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-
+let x = frameCount * 0.2;
 function setup() {
   createCanvas(1000, windowHeight);
 }
@@ -15,7 +15,8 @@ function draw() {
   SUN();
   HILL();
   RIVER();
-  Character()
+  Character();
+  translate(x, 50);
 }
 function RIVER(){
   fill(18, 82, 140);
@@ -39,12 +40,11 @@ function Character(){
   stroke(0, 0, 0);
   strokeWeight(4);
   fill( 0, 3, 105);
-  ellipse(500, 530, 15, 30);
+  ellipse(510, 530, 15, 30);
+  ellipse(490, 530, 15, 30);
   circle(500,500,50);
   circle(500,510,15);
   circle(500,510,2);
   circle(490,495,2);
-  circle(510,495,2);
-  
-
+  circle(510,495,2); 
 }
