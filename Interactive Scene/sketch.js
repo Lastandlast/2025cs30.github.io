@@ -5,7 +5,7 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let x = frameCount * 0.2;
+let x = -500;
 function setup() {
   createCanvas(1000, windowHeight);
 }
@@ -15,36 +15,39 @@ function draw() {
   SUN();
   HILL();
   RIVER();
+  translate(x, 250);
   Character();
-  translate(x, 50);
+  x += 5;
+  if (x == 550) {
+    x = -500;
+  }
 }
-function RIVER(){
+function RIVER() {
   fill(18, 82, 140);
   noStroke();
-  rect(0,500,windowWidth,windowHeight/2);
- 
+  rect(0, 500, windowWidth, windowHeight / 2);
 }
-function HILL(){
+function HILL() {
   fill(133, 108, 9);
   noStroke();
-  triangle(-100, windowHeight/2 + 50, 600, windowHeight/2 + 50, 200, 75);
-  triangle(300, windowHeight/2 + 50, 1100, windowHeight/2 + 50, 800, 75);
+  triangle(-100, windowHeight / 2 + 50, 600, windowHeight / 2 + 50, 200, 75);
+  triangle(300, windowHeight / 2 + 50, 1100, windowHeight / 2 + 50, 800, 75);
 }
-function SUN(){
+function SUN() {
   fill(255, 204, 51);
   noStroke();
-  circle(470,330,150);
+  circle(470, 330, 150);
 }
 
-function Character(){
+function Character() {
   stroke(0, 0, 0);
   strokeWeight(4);
-  fill( 0, 3, 105);
+  fill(0, 3, 105);
   ellipse(510, 530, 15, 30);
   ellipse(490, 530, 15, 30);
-  circle(500,500,50);
-  circle(500,510,15);
-  circle(500,510,2);
-  circle(490,495,2);
-  circle(510,495,2); 
+  circle(500, 500, 50);
+  circle(500, 510, 15);
+  circle(500, 510, 2);
+  circle(490, 495, 2);
+  circle(510, 495, 2);
 }
