@@ -5,23 +5,39 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let x = -500;
+let x,y;
+let Bcolor;
 function setup() {
   createCanvas(1000, windowHeight);
+  x = width/2;
+  y = 250;
+  Bcolor = color(0,0,0);
 }
 
 function draw() {
-  background(96, 163, 224);
+  background(Bcolor);
   SUN();
   HILL();
   RIVER();
-  translate(x, 250);
+  translate(x, y);
   Character();
-  x += 5;
-  if (x == 550) {
-    x = -500;
+}
+
+function keyPressed(){
+  if (keyCode === LEFT_ARROW){
+    x -= 40;
+  } else if (keyCode === RIGHT_ARROW) {
+    x += 40;
   }
 }
+
+function mousePressed(){
+  if(mouseButton === CENTER){
+    Bcolor = color(random(255), random(255), random(255));
+  }
+}
+
+
 function RIVER() {
   fill(18, 82, 140);
   noStroke();
