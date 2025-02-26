@@ -5,38 +5,52 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let x,y;
-let Bcolor;
+let x, y;
+let currentBack = 0;
 function setup() {
-  createCanvas(1000, windowHeight);
-  x = width/2;
+  createCanvas(950, windowHeight);
+  x = width / 2;
   y = 250;
-  Bcolor = color(0,0,0);
 }
 
 function draw() {
-  background(Bcolor);
+  setbackground();
   SUN();
   HILL();
   RIVER();
+  Name();
   translate(x, y);
   Character();
 }
 
-function keyPressed(){
-  if (keyCode === LEFT_ARROW){
+function setbackground() {
+  if (currentBack === 0) {
+    background(135, 206, 235);
+  } else if (currentBack === 1) {
+    background(25, 25, 112);
+  } else if (currentBack === 2) {
+    background(255, 140, 0);
+  } else if (currentBack === 3) {
+    background(169, 169, 169);
+  }
+}
+
+function keyPressed() {
+  if (keyCode === LEFT_ARROW) {
     x -= 40;
   } else if (keyCode === RIGHT_ARROW) {
     x += 40;
   }
 }
 
-function mousePressed(){
-  if(mouseButton === CENTER){
-    Bcolor = color(random(255), random(255), random(255));
+function mousePressed() {
+  if (mouseButton === CENTER) {
+    currentBack++;
+    if (currentBack > 3) {
+      currentBack = 0;
+    }
   }
 }
-
 
 function RIVER() {
   fill(18, 82, 140);
@@ -66,4 +80,10 @@ function Character() {
   circle(500, 510, 2);
   circle(490, 495, 2);
   circle(510, 495, 2);
+}
+
+function Name() {
+  fill(255);
+  textSize(30);
+  text("Mason", 800, 950);
 }
