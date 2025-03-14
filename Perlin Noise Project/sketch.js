@@ -24,17 +24,23 @@ function generateTerrain(){
     rect(x, height, x2, y2);
   }
   rectMode(CORNER);
-  noise(100,200,30000,1111);
-  rect(x,y,d)
-  if()
+
+  
 }
 
 
 
 function draw() {
-  
+
   background(220);
   generateTerrain();
-  drawflag()
+  flag();
+  
  
+}
+
+function flag(){
+  fill(0);
+  rect(200,200,5,45);
+
 }
