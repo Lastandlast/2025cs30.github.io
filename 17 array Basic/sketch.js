@@ -47,6 +47,10 @@ function mousePressed() {
     let x = getCurrentX();
     let y = getCurrentY();
     flip(x,y);
+
+    if(y>0) flip(x,y-1);
+    if(x >0) flip(x -1,y);
+    if(x < NUM_ROWS -1) flip
   }
 
 function flip(x,y){
