@@ -37,6 +37,9 @@ function drawCharacter(){
 
       if(avg > 200) text("&",x,y);
       else if (avg > 150) text("*",x,y);
+      else if (avg > 150) text("*",x,y);
+      else if (avg > 150) text("*",x,y);
+      else if (avg > 150) text("*",x,y);
     }
   }
 }

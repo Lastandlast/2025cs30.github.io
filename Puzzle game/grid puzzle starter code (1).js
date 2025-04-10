@@ -4,8 +4,8 @@ let NUM_ROWS = 4;
 let NUM_COLS = 5;
 let rectWidth, rectHeight;
 let currentRow, currentCol;
-let gridData = [[0,0,0,0,0],
-                [0,0,0,0,0],
+let gridData = [[,0,255,0,0],
+                [0,0,255,0,0],
                 [0,255,0,0,0],
                 [255,255,255,0,0]];
 
@@ -16,6 +16,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   rectWidth = width/NUM_COLS;
   rectHeight = height/NUM_ROWS;
+  noStroke();
 }
 
 function draw() {
@@ -34,7 +35,9 @@ function mousePressed(){
   flip(currentCol, currentRow-1);
   flip(currentCol, currentRow+1);
 }
-
+function cheatmode(){
+  if( )
+}
 function flip(col, row){
  
   if (col >= 0 && col < NUM_COLS ){
@@ -54,13 +57,13 @@ function determineActiveSquare(){
 function drawGrid(){
   for (let x = 0; x < NUM_COLS ; x++){
     for (let y = 0; y < NUM_ROWS; y++){
-      fill(gridData[y][x]); 
+      let c = gridData[y][x];
+      fill(c[0], c[1], c[2]); 
       rect(x*rectWidth, y*rectHeight, rectWidth, rectHeight);
     }
   }
 }
 
 
-function render
 
 
