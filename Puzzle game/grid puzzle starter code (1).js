@@ -16,7 +16,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   rectWidth = width/NUM_COLS;
   rectHeight = height/NUM_ROWS;
-  noStroke();
+  
 }
 
 function draw() {
@@ -35,9 +35,8 @@ function mousePressed(){
   flip(currentCol, currentRow-1);
   flip(currentCol, currentRow+1);
 }
-function cheatmode(){
-  if( )
-}
+
+
 function flip(col, row){
  
   if (col >= 0 && col < NUM_COLS ){
