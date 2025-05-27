@@ -6,11 +6,12 @@
 // - describe what you did to take this project "above and beyond"
 
 let platform;
-let Mariomove = [];
+let Mariomoveright = [];
+let Mariomoveleft = [];
 let currentFrame = 0;
 let cameraX = 0;
 let speed = 10;
-
+let direction = "right"
 
 
 function setup() {
@@ -26,8 +27,16 @@ function draw() {
   translate(-cameraX, 0);
   image(platform, 0, windowHeight/2 -250);
   pop();
-  scale(0.7)
-  image(Mariomove[currentFrame], 200, windowHeight / 2 - 250);
+  scale(0.5)
+  if (direction === "right"){
+    image(Mariomoveright[currentFrame], 200, windowHeight / 2 + 90);} 
+    else if( direction === "left"){
+      image(Mariomoveleft[currentFrame], 200, windowHeight / 2 + 90);}
+      else if(direction === "stand"){
+        image(MarioStand,200, windowHeight / 2 + 90);
+      }
+  
+  
   
   currentFrame++
   if(currentFrame > 2) currentFrame = 0;
@@ -40,19 +49,23 @@ function preload(){
   MarioStand = loadImage("Assets/Mario Stand.png")
 
   for(let i = 0; i < 3; i++){
-    Mariomove.push(loadImage("assets/Mariomove-0" + i + ".png"));
+    Mariomoveright.push(loadImage("assets/Mariomoveright-0" + i + ".png"));
   }
   for(let i = 0; i < 3; i++){
-    Mariomove.push(loadImage("assets/Mariomove-0" + i + ".png"));
+    Mariomoveleft.push(loadImage("assets/Mariomoveleft-0" + i + ".png"));
   }
 }
 function usercontrol() {
   if (keyIsDown(RIGHT_ARROW)) {
     cameraX += speed;
+    direction = "right"
    
   } else if (keyIsDown(LEFT_ARROW)) {
     cameraX -= speed;
-    
+    direction = "left"
+  }else{
+    direction = "stand"
   }
+
 }
 
