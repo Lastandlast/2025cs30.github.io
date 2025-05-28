@@ -22,19 +22,22 @@ function setup() {
 
 function draw() {
   background(255);
-  scale(1);
+  scale(2);
   push();
   translate(-cameraX, 0);
   image(platform, 0, windowHeight/2 -250);
   pop();
-  scale(0.5)
+  scale(0.4)
   if (direction === "right"){
-    image(Mariomoveright[currentFrame], 200, windowHeight / 2 + 90);} 
+    image(Mariomoveright[currentFrame], 200, windowHeight / 2 + 550);} 
     else if( direction === "left"){
-      image(Mariomoveleft[currentFrame], 200, windowHeight / 2 + 90);}
+      image(Mariomoveleft[currentFrame], 200, windowHeight / 2 + 550);}
       else if(direction === "stand"){
-        image(MarioStand,200, windowHeight / 2 + 90);
+        image(MarioStand,200, windowHeight / 2 + 550);
+      }else if( direction === "jump"){
+        image(Mariojump,200, windowHeight / 2 + 500);
       }
+
   
   
   
@@ -46,7 +49,8 @@ function draw() {
 
 function preload(){
   platform = loadImage("Assets/Background.png");
-  MarioStand = loadImage("Assets/Mario Stand.png")
+  MarioStand = loadImage("Assets/Mario Stand.png");
+  Mariojump = loadImage("Assets/Mario jump.png");
 
   for(let i = 0; i < 3; i++){
     Mariomoveright.push(loadImage("assets/Mariomoveright-0" + i + ".png"));
@@ -63,7 +67,10 @@ function usercontrol() {
   } else if (keyIsDown(LEFT_ARROW)) {
     cameraX -= speed;
     direction = "left"
-  }else{
+  } else if(keyIsDown(UP_ARROW)){
+    direction = "jump"
+  }
+  else{
     direction = "stand"
   }
 
