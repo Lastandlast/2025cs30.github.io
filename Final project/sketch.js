@@ -9,6 +9,7 @@ let platform;
 let Mariomoveright = [];
 let Mariomoveleft = [];
 let Enemies = [];
+let bullets = [];
 let currentFrame = 0;
 let cameraX = 0;
 let speed = 10;
@@ -47,6 +48,11 @@ function draw() {
       }else if( direction === "jump"){
         image(Mariojump,200, y);
       }
+      for (let i = bullets.length - 1; i >= 0; i--) {
+        bullets[i].x += 15; 
+        image(Bulletsright, bullets[i].x, bullets[i].y); 
+        
+      }
   
   currentFrame++
   if(currentFrame > 2) currentFrame = 0;
@@ -58,7 +64,8 @@ function preload(){
   platform = loadImage("Assets/Background.png");
   MarioStand = loadImage("Assets/Mario Stand.png");
   Mariojump = loadImage("Assets/Mario jump.png");
-  
+  Bulletsright = loadImage("Assets/bullets(right).png");
+  Bulletsleft = loadImage("Assets/bullets(left).png");
 
   for(let i = 0; i < 3; i++){
     Mariomoveright.push(loadImage("Assets/Mariomoveright-0" + i + ".png"));
@@ -73,21 +80,23 @@ function preload(){
 function usercontrol() {
   if (keyIsDown(RIGHT_ARROW)) {
     cameraX += 10;
-    direction = "right" && "jump"
+    direction = "right"
    
   } else if (keyIsDown(LEFT_ARROW)) {
     cameraX -= 10;
-    direction = "left" && "jump"
+    direction = "left" 
   } else if(keyIsDown(UP_ARROW)){
     direction = "jump"
     if(y <= 200){
-      speed = -15;
+      speed = -1;
     }
-    
-  }
-  else{
+  }else if(keyIsDown(32)){
+    direction = "fire"
+    bullets.push({ x: 200 + cameraX, y: windowHeight / 2 + 550 });
+  }else{
     direction = "stand"
   }
+
 
 }
 
