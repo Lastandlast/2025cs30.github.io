@@ -14,7 +14,10 @@ let currentFrame = 0;
 let cameraX = 0;
 let speed = 10;
 let direction = "right"
-
+let y = 200;
+let yspeed = 0;
+let gravity = 1;
+let isJumping = false;
 
 
 function setup() {
@@ -32,28 +35,30 @@ function draw() {
   image(platform, 0, windowHeight/2 -250);
   pop();
   scale(0.4)
-  y = y + speed
-  if(y < 200){
-    speed = speed + 1
-  }else{
-    speed = 0
-    y = 200
+  yspeed += gravity;   
+  y += yspeed; 
+
+  if (y >= 200) {       
+   y = 1025;
+   yspeed = 0;
+   isJumping = false;  
   }
-  if (direction === "right"){
-    image(Mariomoveright[currentFrame], 200, windowHeight / 2 + 550);} 
-    else if( direction === "left"){
-      image(Mariomoveleft[currentFrame], 200, windowHeight / 2 + 550);}
-      else if(direction === "stand"){
-        image(MarioStand,200, windowHeight / 2 + 550);
-      }else if( direction === "jump"){
-        image(Mariojump,200, y);
-      }
+  let marioY = y;
+  if (direction === "right") {
+    image(Mariomoveright[currentFrame], 200,y);
+  } else if (direction === "left") {
+    image(Mariomoveleft[currentFrame], 200, y);
+  } else if (direction === "stand") {
+    image(MarioStand, 200, y);
+  } else if (direction === "jump") {
+    image(Mariojump, 200, y);
+  }
       for (let i = bullets.length - 1; i >= 0; i--) {
         bullets[i].x += 15; 
-        image(Bulletsright, bullets[i].x, bullets[i].y); 
+        image(Bulletsright, bullets[i].x - cameraX, bullets[i].y); 
         
       }
-  
+
   currentFrame++
   if(currentFrame > 2) currentFrame = 0;
   usercontrol();  
@@ -66,6 +71,7 @@ function preload(){
   Mariojump = loadImage("Assets/Mario jump.png");
   Bulletsright = loadImage("Assets/bullets(right).png");
   Bulletsleft = loadImage("Assets/bullets(left).png");
+  
 
   for(let i = 0; i < 3; i++){
     Mariomoveright.push(loadImage("Assets/Mariomoveright-0" + i + ".png"));
@@ -85,18 +91,16 @@ function usercontrol() {
   } else if (keyIsDown(LEFT_ARROW)) {
     cameraX -= 10;
     direction = "left" 
-  } else if(keyIsDown(UP_ARROW)){
-    direction = "jump"
-    if(y <= 200){
-      speed = -1;
-    }
+  } else if (keyIsDown(UP_ARROW) && !isJumping) {
+    yspeed = +300;      
+    isJumping = true;
+    direction = "jump";
   }else if(keyIsDown(32)){
+    let marioX = 200 + cameraX; 
+    let marioY = y;
     direction = "fire"
-    bullets.push({ x: 200 + cameraX, y: windowHeight / 2 + 550 });
+    bullets.push({ x: marioX, y: marioY, dir: direction });
   }else{
     direction = "stand"
   }
-
-
 }
-
