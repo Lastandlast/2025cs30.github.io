@@ -14,15 +14,11 @@ let currentFrame = 0;
 let cameraX = 0;
 let speed = 10;
 let direction = "right"
-let y = 200;
-let yspeed = 0;
 let gravity = 1;
-let isJumping = false;
-
-
+let Jumping = false;
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  y = 200
+  y = 1000
   yspeed = 0
   frameRate(30);
 }
@@ -38,12 +34,13 @@ function draw() {
   yspeed += gravity;   
   y += yspeed; 
 
-  if (y >= 200) {       
-   y = 1025;
-   yspeed = 0;
-   isJumping = false;  
-  }
-  let marioY = y;
+let groundLevel = 1025; 
+if (y >= groundLevel) {
+  y = groundLevel;
+  yspeed = 0;
+  Jumping = false;
+}
+
   if (direction === "right") {
     image(Mariomoveright[currentFrame], 200,y);
   } else if (direction === "left") {
@@ -53,11 +50,11 @@ function draw() {
   } else if (direction === "jump") {
     image(Mariojump, 200, y);
   }
-      for (let i = bullets.length - 1; i >= 0; i--) {
-        bullets[i].x += 15; 
-        image(Bulletsright, bullets[i].x - cameraX, bullets[i].y); 
+    for (let i = bullets.length - 1; i >= 0; i--) {
+      bullets[i].x += 15; 
+      image(Bulletsright, bullets[i].x - cameraX, bullets[i].y); 
         
-      }
+    }
 
   currentFrame++
   if(currentFrame > 2) currentFrame = 0;
@@ -85,22 +82,44 @@ function preload(){
 }
 function usercontrol() {
   if (keyIsDown(RIGHT_ARROW)) {
-    cameraX += 10;
-    direction = "right"
+    cameraX += 7;
+   
    
   } else if (keyIsDown(LEFT_ARROW)) {
-    cameraX -= 10;
-    direction = "left" 
-  } else if (keyIsDown(UP_ARROW) && !isJumping) {
-    yspeed = +300;      
-    isJumping = true;
-    direction = "jump";
-  }else if(keyIsDown(32)){
+    cameraX -= 7;
+   
+  } else if (keyIsDown(UP_ARROW) && !Jumping) {
+    yspeed = -20;      
+    Jumping = true;
+    
+  }
+  
+if(keyIsDown(32)){
     let marioX = 200 + cameraX; 
     let marioY = y;
-    direction = "fire"
+   
     bullets.push({ x: marioX, y: marioY, dir: direction });
-  }else{
-    direction = "stand"
   }
+if (keyIsDown(UP_ARROW) && !Jumping) {
+    yspeed = -20;      
+    Jumping = true;
+    
+}
+if (Jumping) direction = "jump"
+else if(keyIsDown(LEFT_ARROW))direction = "left"
+else if(keyIsDown(RIGHT_ARROW))direction = "right"
+else if(keyIsDown(32))direction = "fire"
+else direction = "stand"
+
+
+
+  
+// if(keyIsDown(RIGHT_ARROW) && keyIsDown(UP_ARROW)){
+//     cameraX += 7;
+//     direction = "right"
+//     yspeed = -20;      
+//     Jumping = true;
+//     direction = "jump";
+//   }
+  
 }
