@@ -16,31 +16,34 @@ let speed = 10;
 let direction = "right"
 let gravity = 1;
 let Jumping = false;
+let LevelData;
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  y = 1000
+  y = 500
   yspeed = 0
   frameRate(30);
 }
 
 function draw() {
   background(255);
-  scale(2);
+  
   push();
   translate(-cameraX, 0);
-  image(platform, 0, windowHeight/2 -250);
+  image(LevelData,0,windowHeight/2 -250);
+  // image(platform, 0, windowHeight/2 -250);
   pop();
-  scale(0.4)
+  // 
   yspeed += gravity;   
   y += yspeed; 
 
-let groundLevel = 1025; 
+let groundLevel =900; 
 if (y >= groundLevel) {
   y = groundLevel;
   yspeed = 0;
   Jumping = false;
 }
-
+push();
+scale(0.7)
   if (direction === "right") {
     image(Mariomoveright[currentFrame], 200,y);
   } else if (direction === "left") {
@@ -55,9 +58,16 @@ if (y >= groundLevel) {
       image(Bulletsright, bullets[i].x - cameraX, bullets[i].y); 
         
     }
-
+pop();
   currentFrame++
   if(currentFrame > 2) currentFrame = 0;
+  //level sensing
+  //rect(225,y+55,40,10);
+  let bottomsensor = get(mouseX,mouseY);
+  print(bottomsensor,mouseX,mouseY);
+  
+  
+  
   usercontrol();  
 }
 
@@ -68,6 +78,7 @@ function preload(){
   Mariojump = loadImage("Assets/Mario jump.png");
   Bulletsright = loadImage("Assets/bullets(right).png");
   Bulletsleft = loadImage("Assets/bullets(left).png");
+  LevelData = loadImage("Assets/Background-data.png");
   
 
   for(let i = 0; i < 3; i++){
@@ -111,15 +122,5 @@ else if(keyIsDown(RIGHT_ARROW))direction = "right"
 else if(keyIsDown(32))direction = "fire"
 else direction = "stand"
 
-
-
-  
-// if(keyIsDown(RIGHT_ARROW) && keyIsDown(UP_ARROW)){
-//     cameraX += 7;
-//     direction = "right"
-//     yspeed = -20;      
-//     Jumping = true;
-//     direction = "jump";
-//   }
   
 }
