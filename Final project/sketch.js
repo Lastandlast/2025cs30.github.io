@@ -1,6 +1,5 @@
-// Project Title
-// Your Name
-// Date
+// Mario shooter game
+// Mason Yao
 
 let platform;
 let Mariomoveright = [];
@@ -14,9 +13,11 @@ let direction = "right"
 let gravity = 1;
 let Jumping = false;
 let LevelData;
+let Sensors = [];
+
 function setup() {
-  createCanvas(windowWidth, windowHeight);
-  y = 500
+  createCanvas(windowWidth, 480);
+  y = 300
   yspeed = 0
   frameRate(30);
 }
@@ -26,21 +27,26 @@ function draw() {
   
   push();
   translate(-cameraX, 0);
-  image(LevelData,0,windowHeight/2 -250);
-  // image(platform, 0, windowHeight/2 -250);
+  //image(LevelData,0,0);
+  image(platform, 0, 0);
   pop();
   // 
   yspeed += gravity;   
   y += yspeed; 
 
-let groundLevel =900; 
-if (y >= groundLevel) {
-  y = groundLevel;
-  yspeed = 0;
-  Jumping = false;
-}
-push();
-scale(0.7)
+
+
+// let groundLevel =400; 
+// if (y >= groundLevel) {
+//   y = groundLevel;
+  
+//   Jumping = false;
+// }
+
+checkSensors()
+
+// push();
+// scale(0.7)
   if (direction === "right") {
     image(Mariomoveright[currentFrame], 200,y);
   } else if (direction === "left") {
@@ -55,17 +61,36 @@ scale(0.7)
       image(Bulletsright, bullets[i].x - cameraX, bullets[i].y); 
         
     }
-pop();
+    noFill();
+    rect(200,y,40,40);
+// pop();
+
+
+
   currentFrame++
   if(currentFrame > 2) currentFrame = 0;
   //level sensing
   //rect(225,y+55,40,10);
-  let bottomsensor = get(mouseX,mouseY);
-  print(bottomsensor,mouseX,mouseY);
+  //let bottomsensor = get(mouseX,mouseY);
+  //print(bottomsensor,mouseX,mouseY);
   
   
   
   usercontrol();  
+}
+
+function checkSensors(){
+  Sensors[0] = LevelData.get(220 + cameraX,y+40);
+  print(y);
+  fill(Sensors[0]);
+  circle(200,50,50);
+
+  while(JSON.stringify(Sensors[0]) === JSON.stringify([255,0,0,255])){
+    y -= 3
+    Sensors[0] = LevelData.get(220 + cameraX,y+40);
+    yspeed = 0;
+    Jumping = false;
+  }
 }
 
 
