@@ -1,4 +1,4 @@
-// Mario shooter game - 简化版
+
 let platform;
 let Mariomoveright = [];
 let Mariomoveleft = [];
